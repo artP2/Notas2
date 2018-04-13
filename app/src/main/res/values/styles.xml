@@ -1,0 +1,17 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="artTheme" parent="AppTheme" >
+        <item name="colorPrimary">@color/fundoDark</item>
+        <item name="colorPrimaryDark">@color/fundoDark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:colorBackground">@color/fundoDark</item>
+        <item name="android:colorForeground">@color/fundoBranco</item>
+        <item name="android:textColorPrimary">@color/fundoBranco</item>
+        <item name="android:textColorPrimaryInverse">@color/fundoDark</item>
+        <item name="android:textColorSecondary">@color/fundoBranco</item>
+        <item name="android:textColorSecondaryInverse">@color/fundoDark</item>
+        <item name="android:windowBackground">@color/fundoDark</item>
+    </style>
+
+
+</resources>

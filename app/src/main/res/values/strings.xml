@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Notas</string>
+    <string name="add_note">Add nota</string>
+    <string name="titulo_config">Configurações</string>
+    <string name="digiteaki">Digite a nota...</string>
+    <string name="okay">Ok</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="nota_nula">Você não digitou nada...</string>
+</resources>

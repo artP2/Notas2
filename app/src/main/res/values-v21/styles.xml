@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:fontFamily">@font/josefin_sans</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/fundoDark</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/fundoDark</item>
+    </style>
+
+
+</resources>

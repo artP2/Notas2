@@ -77,20 +77,28 @@ public class MainActivity extends Activity {
                 PCancel = alertDialog.findViewById(R.id.buttonPCancel);
                 PText = alertDialog.findViewById(R.id.editTextP);
 
-                PAdd.setOnClickListener(new View.OnClickListener() {
+                alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
-                    public void onClick(View v) {
-                        salvarNota(PText.getText().toString());
+                    public void onDismiss(DialogInterface dialog) {
                         PText.setText("");
-                        alertDialog.dismiss();
-                    }});
+                    }
+                });
                 PCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        PText.setText("");
                         alertDialog.dismiss();
                     }});
+                PAdd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String PTextoD = PText.getText().toString();
+                        if (PTextoD.equals("")){
+                            Toast.makeText(MainActivity.this, R.string.nota_nula, Toast.LENGTH_SHORT).show();
+                        }else{
+                            salvarNota(PTextoD);
+                            alertDialog.dismiss();
+                    }}});
+
             }
         });
 

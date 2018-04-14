@@ -233,10 +233,10 @@ public class MainActivity extends Activity {
      * METODOS DE TESTES   *
      **********************/
 
-
     private void mvNota(Integer position, Integer newPosition){
 
     }
+
     /***********************
      * METODOS DE TESTES   *
      **********************/

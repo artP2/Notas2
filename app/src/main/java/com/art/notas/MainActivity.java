@@ -28,15 +28,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
-                //IMAGEVIEW//
-    private ImageView   openConfig,
-                        imageAdd;
-                //BUTTTON//
-    private Button      PAdd,
-                        PCancel;
-                //EDITTEXT//
+
+    private Button PAdd , PCancel , openConfig , imageAdd;
     private EditText PText;
-                //OUTROS//
     private ListView listNotas;
     private SQLiteDatabase bancoDados;
     private ArrayAdapter<String> arrayAdapter;
@@ -51,14 +45,16 @@ public class MainActivity extends Activity {
 
 //**************************************************************************************************
         listNotas = findViewById(R.id.listViewNotes);
-        openConfig = findViewById(R.id.imageViewConfig);
-        imageAdd = findViewById(R.id.imageAdd);
+        openConfig = findViewById(R.id.buttonConfig);
+        imageAdd = findViewById(R.id.buttonAdd);
+
 //**************************************************************************************************
 // Criar arquivo para guardar dados
         bancoDados = openOrCreateDatabase("appnotas",MODE_PRIVATE,null);
         bancoDados.execSQL("CREATE TABLE IF NOT EXISTS notas(id INTEGER PRIMARY KEY AUTOINCREMENT, nota VARCHAR ) ");
+
 //**************************************************************************************************
-//PopUp
+// PopUp
         AlertDialog.Builder alertDialogBuider  = new AlertDialog.Builder(MainActivity.this);
         alertDialogBuider.setView(R.layout.custom_popup);
 
@@ -126,6 +122,7 @@ public class MainActivity extends Activity {
 /***************************************************************************************************
  *                                          TESTES                                                 *
  **************************************************************************************************/
+
 //**************************************************************************************************
 //LISTAR
         recuperarNotas();
@@ -214,7 +211,7 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
     }
-
+    //SÓ FALTA APLICAR
     private void edNota(Integer id, String textoEd){
         try {
 
@@ -229,10 +226,10 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
     }
+
     /***********************
      * METODOS DE TESTES   *
      **********************/
-
     private void mvNota(Integer position, Integer newPosition){
 
     }

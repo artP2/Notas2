@@ -23,7 +23,7 @@ public class ConfigActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config);
 
-        buttonG = findViewById(R.id.buttonGit);
+        buttonG = findViewById(R.id.buttonSource);
         buttonG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

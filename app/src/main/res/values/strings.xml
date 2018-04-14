@@ -6,5 +6,6 @@
     <string name="okay">Ok</string>
     <string name="cancelar">Cancelar</string>
     <string name="nota_nula">Você não digitou nada...</string>
+    <string name="source_app">Source of the app     </string>
 
 </resources>

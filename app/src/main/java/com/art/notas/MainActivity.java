@@ -58,10 +58,7 @@ public class MainActivity extends Activity {
         bancoDados = openOrCreateDatabase("appnotas",MODE_PRIVATE,null);
         bancoDados.execSQL("CREATE TABLE IF NOT EXISTS notas(id INTEGER PRIMARY KEY AUTOINCREMENT, nota VARCHAR ) ");
 //**************************************************************************************************
-/**
- * FUNCIONA!!!
- * PopUp
- */
+//PopUp
         AlertDialog.Builder alertDialogBuider  = new AlertDialog.Builder(MainActivity.this);
         alertDialogBuider.setView(R.layout.custom_popup);
 
@@ -95,7 +92,7 @@ public class MainActivity extends Activity {
                         if (PTextoD.equals("")){
                             Toast.makeText(MainActivity.this, R.string.nota_nula, Toast.LENGTH_SHORT).show();
                         }else{
-                            salvarNota(PTextoD);
+                            svNota(PTextoD);
                             alertDialog.dismiss();
                     }}});
 
@@ -115,11 +112,20 @@ public class MainActivity extends Activity {
         listNotas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                removerNota(ids.get(position));
+                rmNota(ids.get(position));
                 return true;
             }
         });
 
+/***************************************************************************************************
+ *                                          TESTES                                                 *
+ **************************************************************************************************/
+
+
+
+/***************************************************************************************************
+ *                                          TESTES                                                 *
+ **************************************************************************************************/
 //**************************************************************************************************
 //LISTAR
         recuperarNotas();
@@ -184,7 +190,7 @@ public class MainActivity extends Activity {
             e.printStackTrace();
             }
     }
-    private void removerNota(Integer id){
+    private void rmNota(Integer id){
         try {
 
             bancoDados.execSQL("DELETE FROM notas WHERE id=" + id);
@@ -194,7 +200,7 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
     }
-    private void salvarNota(String texto){
+    private void svNota(String texto){
         try {
 
             if (texto.equals("")) {
@@ -209,4 +215,29 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void edNota(Integer id, String textoEd){
+        try {
+
+            if (textoEd.equals("")) {
+                Toast.makeText(MainActivity.this, R.string.nota_nula, Toast.LENGTH_SHORT).show();
+            } else {
+                bancoDados.execSQL( "UPDATE notas SET nota ='" + textoEd + "' WHERE id=" + id);
+                recuperarNotas();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    /***********************
+     * METODOS DE TESTES   *
+     **********************/
+
+
+    private void mvNota(Integer position, Integer newPosition){
+
+    }
+    /***********************
+     * METODOS DE TESTES   *
+     **********************/
 }

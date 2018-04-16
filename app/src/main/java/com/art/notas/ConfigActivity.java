@@ -15,7 +15,7 @@ import android.widget.EditText;
 
 public class ConfigActivity extends Activity {
 
-    Button buttonG;
+    Button buttonG , buttonR;
 
     @SuppressLint("NewApi")
     @Override
@@ -23,7 +23,9 @@ public class ConfigActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config);
 
-        buttonG = findViewById(R.id.buttonSource);
+        buttonG =   findViewById(R.id.buttonSource);
+        buttonR =   findViewById(R.id.buttonRequest);
+
         buttonG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,6 +35,14 @@ public class ConfigActivity extends Activity {
             }
         });
 
+        buttonR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://t.me/artP2");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
 
     }
 

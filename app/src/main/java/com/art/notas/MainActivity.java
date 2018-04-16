@@ -148,16 +148,16 @@ public class MainActivity extends Activity {
             try{
 
                 //Recuperar as tarefas
-            Cursor cursor = bancoDados.rawQuery("SELECT * FROM notas ORDER BY id DESC", null);
+                Cursor cursor = bancoDados.rawQuery("SELECT * FROM notas ORDER BY id DESC", null);
 
-            //recuperar os ids das colunas
-            int indiceColunaId = cursor.getColumnIndex("id");
-            int indiceColunaNota = cursor.getColumnIndex("nota");
+                //recuperar os ids das colunas
+                int indiceColunaId = cursor.getColumnIndex("id");
+                int indiceColunaNota = cursor.getColumnIndex("nota");
 
-            //Criar adaptador
-            notas = new ArrayList<String>();
-            ids = new ArrayList<Integer>();
-            arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                //Criar adaptador
+                notas = new ArrayList<String>();
+                ids = new ArrayList<Integer>();
+                arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
                     android.R.layout.simple_list_item_2,
                     android.R.id.text2,
                     notas){

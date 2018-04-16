@@ -43,8 +43,6 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:divider="?attr/dividerHorizontal"
-        android:dividerHeight="0dp"
         app:layout_constraintBottom_toTopOf="@+id/vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

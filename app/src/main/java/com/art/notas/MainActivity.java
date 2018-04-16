@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -88,8 +89,8 @@ public class MainActivity extends Activity {
                         if (PTextoD.equals("")){
                             Toast.makeText(MainActivity.this, R.string.nota_nula, Toast.LENGTH_SHORT).show();
                         }else{
-                            svNota(PTextoD);
-                            alertDialog.dismiss();
+                                svNota(PTextoD);
+                                alertDialog.dismiss();
                     }}});
 
             }
@@ -198,14 +199,11 @@ public class MainActivity extends Activity {
         }
     }
     private void svNota(String texto){
+        // Solve de ' problem
+        String textoR =  texto.replace("'","''");
         try {
-
-            if (texto.equals("")) {
-                Toast.makeText(MainActivity.this, R.string.nota_nula, Toast.LENGTH_SHORT).show();
-            } else {
-                bancoDados.execSQL("INSERT INTO notas (nota) VALUES('" + texto + "') ");
+                bancoDados.execSQL("INSERT INTO notas (nota) VALUES('" + textoR + "') ");
                 recuperarNotas();
-            }
 
         }catch (Exception e){
             e.printStackTrace();

@@ -1,12 +1,11 @@
 <resources>
     <string name="app_name">Notas</string>
-    <string name="add">Add</string>
+    <string name="add">Adicionar</string>
     <string name="titulo_config">Configurações</string>
     <string name="digiteaki">Digite a nota...</string>
-    <string name="okay">Ok</string>
     <string name="cancelar">Cancelar</string>
     <string name="nota_nula">Você não digitou nada...</string>
-    <string name="source_app">Source of the app</string>
-    <string name="request">Request</string>
+    <string name="source_app">Source do app</string>
+    <string name="request">Sugestões e pedidos</string>
 
 </resources>

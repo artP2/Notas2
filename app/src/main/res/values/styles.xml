@@ -11,6 +11,7 @@
         <item name="android:textColorSecondary">@color/fundoBranco</item>
         <item name="android:textColorSecondaryInverse">@color/fundoDark</item>
         <item name="android:windowBackground">@color/fundoDark</item>
+
     </style>
 
 

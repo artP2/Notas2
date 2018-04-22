@@ -1,12 +1,16 @@
 <resources>
-    <string name="app_name">Notas</string>
-    <string name="add">Adicionar</string>
-    <string name="titulo_config">Configurações</string>
-    <string name="digiteaki">Digite a nota</string>
-    <string name="cancelar">Cancelar</string>
-    <string name="nota_nula">Você não digitou nada</string>
-    <string name="source_app">Source do app</string>
-    <string name="request">Sugestões e pedidos</string>
-    <string name="return_act">Voltar</string>
+    <string name="app_name">Notes</string>
+    <string name="add">Add</string>
+    <string name="titulo_config">Settings</string>
+    <string name="digiteaki">Write something</string>
+    <string name="cancelar">Cancel</string>
+    <string name="nota_nula">Text is null</string>
+    <string name="source_app">Source of the app</string>
+    <string name="request">Suggest and request</string>
+    <string name="return_act">Return</string>
+
+    <string name="change_theme">Change the theme</string>
+    <string name="nothing">Nothing here</string>
+
 
 </resources>

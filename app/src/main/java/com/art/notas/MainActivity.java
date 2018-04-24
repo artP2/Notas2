@@ -38,9 +38,6 @@ public class MainActivity extends Activity {
     private EditText PText;
     private ListView listNotas;
     private SQLiteDatabase bancoDados;
-    private ArrayAdapter<String> arrayAdapter;
-    private ArrayList<String> notas;
-    private ArrayList<Integer> ids;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

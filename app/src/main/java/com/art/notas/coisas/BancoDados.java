@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +22,10 @@ public class BancoDados {
 
 public static ArrayList<Integer> ids;
 public static ArrayList<String> notas;
-public static ArrayAdapter<String> arrayAdapter;
+public static RecyclerView.Adapter rAdapter;
+public static RecyclerView.LayoutManager rLayoutManager;
 
-    public static void recuperarNotas(SQLiteDatabase database, Context context, ListView listView){
+    public static void recuperarNotas(SQLiteDatabase database, Context context, RecyclerView view){
         try{
 
             //Recuperar as tarefas
@@ -35,21 +38,20 @@ public static ArrayAdapter<String> arrayAdapter;
             //Criar adaptador
             notas = new ArrayList<String>();
             ids = new ArrayList<Integer>();
-            arrayAdapter = new ArrayAdapter<String>(context,
-                    android.R.layout.simple_list_item_2,
-                    android.R.id.text2,
-                    notas){
-                @Override
-                public View getView(int position, View convertView, ViewGroup parent) {
 
-                    View view       =   super.getView(position, convertView, parent);
-                    TextView text   =   view.findViewById(android.R.id.text2);
-                    text.setTextColor(Color.WHITE);
-                    return view;
 
-                }
-            };
-            listView.setAdapter( arrayAdapter );
+            // use this setting to improve performance if you know that changes
+            // in content do not change the layout size of the RecyclerView
+            view.setHasFixedSize(true);
+
+            // use a linear layout manager
+            rLayoutManager = new LinearLayoutManager(context);
+            view.setLayoutManager(rLayoutManager);
+
+            // specify an adapter (see also next example)
+            rAdapter = new RListAdapter(BancoDados.notas);
+            view.setAdapter(rAdapter);
+
 
             //listar as tarefas
             cursor.moveToFirst();
@@ -65,35 +67,35 @@ public static ArrayAdapter<String> arrayAdapter;
             e.printStackTrace();
         }
     }
-    public static void rmNota(Integer id, SQLiteDatabase database, Context context, ListView listView){
+    public static void rmNota(Integer id, SQLiteDatabase database, Context context, RecyclerView view){
         try {
 
             database.execSQL("DELETE FROM notas WHERE id=" + id);
-            recuperarNotas(database, context, listView);
+            recuperarNotas(database, context, view);
 
         }catch (Exception e){
             e.printStackTrace();
         }
     }
-    public static void svNota(String texto, SQLiteDatabase database, Context context, ListView listView){
+    public static void svNota(String texto, SQLiteDatabase database, Context context, RecyclerView view){
         // Solve de ' problem
         String textoR   =   texto.replace("'","''");
         try {
             database.execSQL("INSERT INTO notas (nota) VALUES('" + textoR + "') ");
-            recuperarNotas(database, context, listView);
+            recuperarNotas(database, context, view);
 
         }catch (Exception e){
             e.printStackTrace();
         }
     }
-    public static void edNota(Integer id, String textoEd, SQLiteDatabase database, Context context, ListView listView){
+    public static void edNota(Integer id, String textoEd, SQLiteDatabase database, Context context, RecyclerView view){
         try {
 
             if (textoEd.equals("")) {
                 Toast.makeText(context, R.string.nota_nula, Toast.LENGTH_SHORT).show();
             } else {
                 database.execSQL( "UPDATE notas SET nota ='" + textoEd + "' WHERE id=" + id);
-                recuperarNotas(database, context,listView);
+                recuperarNotas(database, context,view);
             }
 
         }catch (Exception e){

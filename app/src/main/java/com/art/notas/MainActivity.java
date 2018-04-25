@@ -4,31 +4,23 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-
+//It's my!
 import com.art.notas.coisas.BancoDados;
+import com.art.notas.coisas.RListAdapter;
 
-import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
@@ -36,9 +28,9 @@ public class MainActivity extends Activity {
     private Button PAdd, PCancel;
     private ImageView imageAdd, openConfig, imageFind;
     private EditText PText;
-    private ListView listNotas;
     private SQLiteDatabase bancoDados;
 
+    private RecyclerView listNotas;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -48,7 +40,7 @@ public class MainActivity extends Activity {
 
         Context context = getApplicationContext();
 //**************************************************************************************************
-        listNotas = findViewById(R.id.listViewNotes);
+        listNotas = findViewById(R.id.viewNotas);
         openConfig = findViewById(R.id.imageViewConfig);
         imageAdd = findViewById(R.id.imageViewAdd);
 
@@ -118,19 +110,25 @@ public class MainActivity extends Activity {
             }
         });
 
-        listNotas.setLongClickable(true);
-        listNotas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listNotas.addOnItemTouchListener(new RListAdapter.RecyclerViewTouchListener(context, listNotas, new RListAdapter.RecyclerViewClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Integer posicaoID =  BancoDados.ids.get(position);
-                BancoDados.rmNota(posicaoID , bancoDados , context , listNotas);
-                return true;
+            public void onClick(View view, int position) {
+
             }
-        });
+
+            @Override
+            public void onLongClick(View view, int position) {
+                Integer posicaoID =  BancoDados.ids.get(position);
+                BancoDados.rmNota(posicaoID, bancoDados, context, listNotas);
+            }
+        }));
 
 /***************************************************************************************************
  *                                          TESTES                                                 *
  **************************************************************************************************/
+
+
+
 
 
 /***************************************************************************************************

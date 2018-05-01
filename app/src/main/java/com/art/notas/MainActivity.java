@@ -10,11 +10,13 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 //It's my!
@@ -25,8 +27,8 @@ import com.art.notas.coisas.RListAdapter;
 public class MainActivity extends Activity {
 
 
-    private Button PAdd, PCancel;
-    private ImageView imageAdd, openConfig, imageFind;
+    private Button PPositive, PCancel;
+    private ImageView imageAdd, openConfig;
     private EditText PText;
     private SQLiteDatabase bancoDados;
 
@@ -38,13 +40,12 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Context context = getApplicationContext();
+        Context context = MainActivity.this;
 //**************************************************************************************************
         listNotas = findViewById(R.id.viewNotas);
         openConfig = findViewById(R.id.imageViewConfig);
         imageAdd = findViewById(R.id.imageViewAdd);
 
-        imageFind = findViewById(R.id.imageViewFind);
 //**************************************************************************************************
 // Criar arquivo para guardar dados
         bancoDados = openOrCreateDatabase("appnotas", MODE_PRIVATE, null);
@@ -63,7 +64,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 alertDialog.show();
 
-                PAdd = alertDialog.findViewById(R.id.buttonPAdd);
+                PPositive = alertDialog.findViewById(R.id.buttonPAdd);
                 PCancel = alertDialog.findViewById(R.id.buttonPCancel);
                 PText = alertDialog.findViewById(R.id.editTextP);
 
@@ -79,14 +80,15 @@ public class MainActivity extends Activity {
                         alertDialog.dismiss();
                     }
                 });
-                PAdd.setOnClickListener(new View.OnClickListener() {
+                PPositive.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         String PTextoD = PText.getText().toString();
                         if (PTextoD.equals("")) {
                             Toast.makeText(context, R.string.nota_nula, Toast.LENGTH_SHORT).show();
                         } else {
-                            BancoDados.svNota(PTextoD, bancoDados, context, listNotas);
+                            //Salvar = 1
+                            BancoDados.aNotes(bancoDados, context, listNotas, 1, null, PTextoD);
                             alertDialog.dismiss();
                         }
                     }
@@ -103,41 +105,79 @@ public class MainActivity extends Activity {
                 irParaConfig();
             }
         });
-        imageFind.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, R.string.nothing, Toast.LENGTH_SHORT).show();
-            }
-        });
 
         listNotas.addOnItemTouchListener(new RListAdapter.RecyclerViewTouchListener(context, listNotas, new RListAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-
             }
 
             @Override
             public void onLongClick(View view, int position) {
                 Integer posicaoID =  BancoDados.ids.get(position);
-                BancoDados.rmNota(posicaoID, bancoDados, context, listNotas);
+
+                PopupMenu popupMenu = new PopupMenu(context , view );
+                popupMenu.getMenuInflater().inflate(R.menu.list_menu, popupMenu.getMenu());
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.itemEd:
+                                alertDialog.show();
+
+                                PPositive = alertDialog.findViewById(R.id.buttonPAdd);
+                                PCancel = alertDialog.findViewById(R.id.buttonPCancel);
+                                PText = alertDialog.findViewById(R.id.editTextP);
+
+                                PPositive.setText(R.string.edit);
+
+
+                                alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        PText.setText("");
+                                    }
+                                });
+                                PCancel.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        alertDialog.dismiss();
+                                    }
+                                });
+                                PPositive.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        String PTextoD = PText.getText().toString();
+                                        if (PTextoD.equals("")) {
+                                            Toast.makeText(context, R.string.nota_nula, Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            //Editar = 3
+                                            BancoDados.aNotes(bancoDados, context, listNotas, 3, posicaoID, PTextoD);
+                                            alertDialog.dismiss();
+                                        }
+                                    }
+                                });
+
+                                return true;
+                            case R.id.itemRm:
+                                //Remover = 2
+                                BancoDados.aNotes(bancoDados, context, listNotas, 2, posicaoID, null);
+                                return true;
+
+                            default:
+                                return MainActivity.super.onContextItemSelected(item);
+                        }
+                    }
+                });
+                popupMenu.show();
+
             }
         }));
 
-/***************************************************************************************************
- *                                          TESTES                                                 *
- **************************************************************************************************/
-
-
-
-
-
-/***************************************************************************************************
- *                                          TESTES                                                 *
- **************************************************************************************************/
 
 //**************************************************************************************************
 //LISTAR
-        BancoDados.recuperarNotas(bancoDados, context, listNotas);
+        BancoDados.aNotes(bancoDados, context, listNotas, 0, null, null);
 
     }
 

@@ -3,20 +3,15 @@ package com.art.notas.coisas;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.art.notas.R;
 
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 public class BancoDados {
 
@@ -25,9 +20,8 @@ public static ArrayList<String> notas;
 public static RecyclerView.Adapter rAdapter;
 public static RecyclerView.LayoutManager rLayoutManager;
 
-    public static void recuperarNotas(SQLiteDatabase database, Context context, RecyclerView view){
+    public static void aNotes(SQLiteDatabase database, Context context, RecyclerView view, int modoSvRmEd , Integer id, String texto){
         try{
-
             //Recuperar as tarefas
             Cursor cursor   =   database.rawQuery("SELECT * FROM notas ORDER BY id DESC", null);
 
@@ -52,6 +46,28 @@ public static RecyclerView.LayoutManager rLayoutManager;
             rAdapter = new RListAdapter(BancoDados.notas);
             view.setAdapter(rAdapter);
 
+            switch (modoSvRmEd){
+                case 1:
+                    //Sv
+                    // Solve de ' problem
+                    String textoR   =   texto.replace("'","''");
+                    database.execSQL("INSERT INTO notas (nota) VALUES('" + textoR + "') ");
+                    break;
+
+                case 2:
+                    //Rm
+                    database.execSQL("DELETE FROM notas WHERE id=" + id);
+                    break;
+
+                case 3:
+                    //Ed
+                    database.execSQL( "UPDATE notas SET nota ='" + texto + "' WHERE id=" + id);
+
+                    break;
+
+                default:
+                    break;
+            }
 
             //listar as tarefas
             cursor.moveToFirst();
@@ -67,40 +83,4 @@ public static RecyclerView.LayoutManager rLayoutManager;
             e.printStackTrace();
         }
     }
-    public static void rmNota(Integer id, SQLiteDatabase database, Context context, RecyclerView view){
-        try {
-
-            database.execSQL("DELETE FROM notas WHERE id=" + id);
-            recuperarNotas(database, context, view);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-    public static void svNota(String texto, SQLiteDatabase database, Context context, RecyclerView view){
-        // Solve de ' problem
-        String textoR   =   texto.replace("'","''");
-        try {
-            database.execSQL("INSERT INTO notas (nota) VALUES('" + textoR + "') ");
-            recuperarNotas(database, context, view);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-    public static void edNota(Integer id, String textoEd, SQLiteDatabase database, Context context, RecyclerView view){
-        try {
-
-            if (textoEd.equals("")) {
-                Toast.makeText(context, R.string.nota_nula, Toast.LENGTH_SHORT).show();
-            } else {
-                database.execSQL( "UPDATE notas SET nota ='" + textoEd + "' WHERE id=" + id);
-                recuperarNotas(database, context,view);
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
 }

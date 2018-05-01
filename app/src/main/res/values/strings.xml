@@ -10,7 +10,7 @@
     <string name="return_act">Return</string>
 
     <string name="change_theme">Change the theme</string>
-    <string name="nothing">Nothing here</string>
-
+    <string name="edit">Edit</string>
+    <string name="remove">Remove</string>
 
 </resources>

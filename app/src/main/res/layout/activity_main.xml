@@ -11,19 +11,6 @@
     tools:layout_editor_absoluteY="25dp">
 
     <ImageView
-        android:id="@+id/imageViewFind"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:contentDescription="@string/nothing"
-        android:src="@drawable/ic_search"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageViewConfig"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
         android:id="@+id/imageViewAdd"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -34,7 +21,7 @@
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewConfig" />
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
 
     <ImageView
         android:id="@+id/imageViewConfig"
@@ -46,7 +33,7 @@
         android:contentDescription="@string/titulo_config"
         android:src="@drawable/ic_config"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.v7.widget.RecyclerView
@@ -61,5 +48,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
 </android.support.constraint.ConstraintLayout>

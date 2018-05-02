@@ -129,9 +129,6 @@ public class MainActivity extends Activity {
                                 PCancel = alertDialog.findViewById(R.id.buttonPCancel);
                                 PText = alertDialog.findViewById(R.id.editTextP);
 
-                                PPositive.setText(R.string.edit);
-
-
                                 alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                     @Override
                                     public void onDismiss(DialogInterface dialog) {

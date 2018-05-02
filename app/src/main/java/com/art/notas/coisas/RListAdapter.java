@@ -20,7 +20,7 @@ public class RListAdapter extends RecyclerView.Adapter<RListAdapter.ViewHolder>{
     public RListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 /** CRIA AS VIEWS
  * CHAMADO PELO LAYOUT MANAGER */
- View view = (View) LayoutInflater.from(parent.getContext())
+ View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.notas_view, parent, false);
         ViewHolder vh = new ViewHolder(view);
         return vh;

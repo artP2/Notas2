@@ -11,16 +11,14 @@
         android:id="@+id/editTextP"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/arredondado"
         android:ems="10"
         android:hint="@string/digiteaki"
         android:inputType="textMultiLine"
         android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/buttonPAdd"
+        app:layout_constraintStart_toStartOf="@+id/buttonPCancel"
         app:layout_constraintTop_toTopOf="parent"></EditText>
 
     <Button
@@ -28,8 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
         android:background="@color/fundoDark"
         android:drawableEnd="@drawable/ic_check"
         android:paddingLeft="10dp"
@@ -38,7 +36,6 @@
         android:textColor="@color/accent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/editTextP" />
 
     <Button
@@ -46,8 +43,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:background="@color/fundoDark"
         android:drawableEnd="@drawable/ic_cancel"
         android:paddingLeft="10dp"
@@ -55,7 +52,6 @@
         android:text="@string/cancelar"
         android:textColor="@color/accent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextP" />
 

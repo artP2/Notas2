@@ -109,6 +109,7 @@ public class MainActivity extends Activity {
         listNotas.addOnItemTouchListener(new RListAdapter.RecyclerViewTouchListener(context, listNotas, new RListAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
+
             }
 
             @Override
@@ -128,6 +129,8 @@ public class MainActivity extends Activity {
                                 PPositive = alertDialog.findViewById(R.id.buttonPAdd);
                                 PCancel = alertDialog.findViewById(R.id.buttonPCancel);
                                 PText = alertDialog.findViewById(R.id.editTextP);
+
+                                PText.setText(BancoDados.notas.get(position));
 
                                 alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                     @Override

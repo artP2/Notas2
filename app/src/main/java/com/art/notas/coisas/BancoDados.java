@@ -5,13 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.art.notas.R;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 public class BancoDados {
 
@@ -43,7 +38,7 @@ public static RecyclerView.LayoutManager rLayoutManager;
             view.setLayoutManager(rLayoutManager);
 
             // specify an adapter (see also next example)
-            rAdapter = new RListAdapter(BancoDados.notas);
+            rAdapter = new RListAdapter(notas);
             view.setAdapter(rAdapter);
 
             switch (modoSvRmEd){
@@ -62,7 +57,6 @@ public static RecyclerView.LayoutManager rLayoutManager;
                 case 3:
                     //Ed
                     database.execSQL( "UPDATE notas SET nota ='" + texto + "' WHERE id=" + id);
-
                     break;
 
                 default:

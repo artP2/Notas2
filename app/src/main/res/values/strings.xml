@@ -10,9 +10,10 @@
     <string name="request">Suggest and request</string>
     <string name="return_act">Return</string>
 
-    <string name="change_theme">Change the theme</string>
     <string name="edit">Edit</string>
     <string name="remove">Remove</string>
     <string name="movetotop">Move to top</string>
+
+    <string name="talvez">More in the future</string>
 
 </resources>

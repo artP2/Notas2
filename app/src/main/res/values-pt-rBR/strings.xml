@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Notes</string>
+    <string name="okay">Ok</string>
+    <string name="add">Adicionar</string>
+    <string name="titulo_config">Configurações</string>
+    <string name="digiteaki">Escreva algo</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="nota_nula">O texto está vazio</string>
+    <string name="source_app">Código do app</string>
+    <string name="request">Sugerir ou pedir</string>
+    <string name="return_act">Voltar</string>
+    <string name="change_theme">Mudar o tema</string>
+    <string name="edit">Editar</string>
+    <string name="remove">Remover</string>
+    <string name="movetotop">Mover para cima</string>
+</resources>

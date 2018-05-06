@@ -5,7 +5,7 @@
     <string name="titulo_config">Settings</string>
     <string name="digiteaki">Write something</string>
     <string name="cancelar">Cancel</string>
-    <string name="nota_nula">Text is null</string>
+    <string name="nota_nula">The text is null</string>
     <string name="source_app">Source of the app</string>
     <string name="request">Suggest and request</string>
     <string name="return_act">Return</string>
@@ -13,5 +13,6 @@
     <string name="change_theme">Change the theme</string>
     <string name="edit">Edit</string>
     <string name="remove">Remove</string>
+    <string name="movetotop">Move to top</string>
 
 </resources>

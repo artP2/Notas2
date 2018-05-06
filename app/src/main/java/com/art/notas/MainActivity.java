@@ -159,10 +159,16 @@ public class MainActivity extends Activity {
                                 });
 
                                 return true;
+
                             case R.id.itemRm:
                                 //Remover = 2
                                 BancoDados.aNotes(bancoDados, context, listNotas, 2, posicaoID, null);
                                 return true;
+
+                            case R.id.itemMv:
+                                //Mover para cima = criar novo e apagar o antigo :D
+                                BancoDados.aNotes(bancoDados, context, listNotas, 1, null, BancoDados.notas.get(position));
+                                BancoDados.aNotes(bancoDados, context, listNotas, 2, posicaoID, null);
 
                             default:
                                 return MainActivity.super.onContextItemSelected(item);

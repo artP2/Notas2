@@ -15,7 +15,6 @@
         android:layout_marginTop="1dp"
         android:background="@drawable/arredondado"
         android:padding="10dp"
-        android:text="testando testando testando 3916516 516 5sd a "
         android:textColor="@color/fundoBranco"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

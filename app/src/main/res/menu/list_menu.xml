@@ -6,6 +6,10 @@
         android:id="@+id/itemEd"
         android:title="@string/edit" />
     <item
+        android:id="@+id/itemMv"
+        android:title="@string/movetotop"/>
+    <item
         android:id="@+id/itemRm"
         android:title="@string/remove" />
+
 </menu>

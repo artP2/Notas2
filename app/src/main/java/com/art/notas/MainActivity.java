@@ -1,6 +1,8 @@
 package com.art.notas;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,7 +21,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-//It's my!
+//It's mine!
 import com.art.notas.coisas.BancoDados;
 import com.art.notas.coisas.RListAdapter;
 
@@ -169,6 +171,12 @@ public class MainActivity extends Activity {
                                 //Mover para cima = criar novo e apagar o antigo :D
                                 BancoDados.aNotes(bancoDados, context, listNotas, 1, null, BancoDados.notas.get(position));
                                 BancoDados.aNotes(bancoDados, context, listNotas, 2, posicaoID, null);
+
+                            case R.id.itemC:
+                                ClipboardManager clipboard = (ClipboardManager)
+                                        getSystemService(Context.CLIPBOARD_SERVICE);
+                                ClipData clipData = ClipData.newPlainText("texto",BancoDados.notas.get(position));
+                                clipboard.setPrimaryClip(clipData);
 
                             default:
                                 return MainActivity.super.onContextItemSelected(item);

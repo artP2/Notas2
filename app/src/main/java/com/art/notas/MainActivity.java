@@ -102,30 +102,34 @@ public class MainActivity extends Activity {
 
 //**************************************************************************************************
 // Eventos de onClick
+                    //Abrir configurações
         openConfig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 irParaConfig();
             }
         });
-
+                    //Click na lista
         listNotas.addOnItemTouchListener(new RListAdapter.RecyclerViewTouchListener(context, listNotas, new RListAdapter.RecyclerViewClickListener() {
+                    //Click
             @Override
             public void onClick(View view, int position) {
             }
-
+                    //Click longo
             @Override
             public void onLongClick(View view, int position) {
                 Integer posicaoID =  BancoDados.ids.get(position);
-
+                    //Abrir menu
                 PopupMenu popupMenu = new PopupMenu(context , view );
                 popupMenu.getMenuInflater().inflate(R.menu.list_menu, popupMenu.getMenu());
-
+                    //Click menu
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        //Indentificar opção escolhida e faze-la
                         switch (item.getItemId()){
                             case R.id.itemEd:
+                                //Editar a nota = 3
                                 alertDialog.show();
 
                                 PPositive = alertDialog.findViewById(R.id.buttonPAdd);
@@ -173,6 +177,7 @@ public class MainActivity extends Activity {
                                 BancoDados.aNotes(bancoDados, context, listNotas, 2, posicaoID, null);
 
                             case R.id.itemC:
+                                //Copiar
                                 ClipboardManager clipboard = (ClipboardManager)
                                         getSystemService(Context.CLIPBOARD_SERVICE);
                                 ClipData clipData = ClipData.newPlainText("texto",BancoDados.notas.get(position));
@@ -196,7 +201,7 @@ public class MainActivity extends Activity {
     }
 
     //**************************************************************************************************
-    //MUDANÇA DE ACTIVITY
+    //Ir para as configurações
     public void irParaConfig() {
         try {
 

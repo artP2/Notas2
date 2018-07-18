@@ -1,40 +1,29 @@
 package com.art.notas;
 
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 //It's mine!
-import com.art.notas.coisas.BancoDados;
 import com.art.notas.coisas.RListAdapter;
+import static com.art.notas.coisas.BancoDados.*;
 
 
 public class MainActivity extends Activity {
 
 
-    private Button PPositive, PCancel;
     private ImageView imageAdd, openConfig;
-    private EditText PText;
-    private SQLiteDatabase bancoDados;
 
+    private SQLiteDatabase bancoDados;
     private RecyclerView listNotas;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -56,46 +45,11 @@ public class MainActivity extends Activity {
 
 //**************************************************************************************************
 // PopUp
-        AlertDialog.Builder alertDialogBuider = new AlertDialog.Builder(MainActivity.this);
-        alertDialogBuider.setView(R.layout.custom_popup);
-
-        AlertDialog alertDialog = alertDialogBuider.create();
-        alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
         imageAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alertDialog.show();
-
-                PPositive = alertDialog.findViewById(R.id.buttonPAdd);
-                PCancel = alertDialog.findViewById(R.id.buttonPCancel);
-                PText = alertDialog.findViewById(R.id.editTextP);
-
-                alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        PText.setText("");
-                    }
-                });
-                PCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                    }
-                });
-                PPositive.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String PTextoD = PText.getText().toString();
-                        if (PTextoD.equals("")) {
-                            Toast.makeText(context, R.string.nota_nula, Toast.LENGTH_SHORT).show();
-                        } else {
-                            //Salvar = 1
-                            BancoDados.aNotes(bancoDados, context, listNotas, 1, null, PTextoD);
-                            alertDialog.dismiss();
-                        }
-                    }
-                });
+                gNotes(bancoDados, context, listNotas, 6, null, null);
 
             }
         });
@@ -118,77 +72,40 @@ public class MainActivity extends Activity {
                     //Click longo
             @Override
             public void onLongClick(View view, int position) {
-                Integer posicaoID =  BancoDados.ids.get(position);
                     //Abrir menu
                 PopupMenu popupMenu = new PopupMenu(context , view );
                 popupMenu.getMenuInflater().inflate(R.menu.list_menu, popupMenu.getMenu());
                     //Click menu
+
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         //Indentificar opção escolhida e faze-la
+                        int modo = 0;
+                        Integer id = ids.get(position);
+                        String nota = notas.get(position);
+
                         switch (item.getItemId()){
-                            case R.id.itemEd:
-                                //Editar a nota = 3
-                                alertDialog.show();
-
-                                PPositive = alertDialog.findViewById(R.id.buttonPAdd);
-                                PCancel = alertDialog.findViewById(R.id.buttonPCancel);
-                                PText = alertDialog.findViewById(R.id.editTextP);
-
-                                PText.setText(BancoDados.notas.get(position));
-
-                                alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                    @Override
-                                    public void onDismiss(DialogInterface dialog) {
-                                        PText.setText("");
-                                    }
-                                });
-                                PCancel.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        alertDialog.dismiss();
-                                    }
-                                });
-                                PPositive.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        String PTextoD = PText.getText().toString();
-                                        if (PTextoD.equals("")) {
-                                            Toast.makeText(context, R.string.nota_nula, Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            //Editar = 3
-                                            BancoDados.aNotes(bancoDados, context, listNotas, 3, posicaoID, PTextoD);
-                                            alertDialog.dismiss();
-                                        }
-                                    }
-                                });
-
-                                return true;
-
                             case R.id.itemRm:
-                                //Remover = 2
-                                BancoDados.aNotes(bancoDados, context, listNotas, 2, posicaoID, null);
-                                return true;
-
+                                modo = 2;
+                                break;
+                            case R.id.itemEd:
+                                modo = 6;
+                                break;
                             case R.id.itemMv:
-                                //Mover para cima = criar novo e apagar o antigo :D
-                                BancoDados.aNotes(bancoDados, context, listNotas, 1, null, BancoDados.notas.get(position));
-                                BancoDados.aNotes(bancoDados, context, listNotas, 2, posicaoID, null);
-
+                                modo = 4;
+                                break;
                             case R.id.itemC:
-                                //Copiar
-                                ClipboardManager clipboard = (ClipboardManager)
-                                        getSystemService(Context.CLIPBOARD_SERVICE);
-                                ClipData clipData = ClipData.newPlainText("texto",BancoDados.notas.get(position));
-                                clipboard.setPrimaryClip(clipData);
-
-                            default:
-                                return MainActivity.super.onContextItemSelected(item);
+                                modo = 5;
+                                break;
                         }
+                        gNotes(bancoDados,context,listNotas,modo,id,nota);
+
+                        return MainActivity.super.onContextItemSelected(item);
                     }
                 });
                 popupMenu.show();
+
 
             }
         }));
@@ -196,7 +113,7 @@ public class MainActivity extends Activity {
 
 //**************************************************************************************************
 //LISTAR
-        BancoDados.aNotes(bancoDados, context, listNotas, 0, null, null);
+        aNotes(bancoDados, context, listNotas);
 
     }
 

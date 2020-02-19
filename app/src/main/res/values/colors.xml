@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="fundoBranco">#ffffff</color>
-    <color name="fundoDark">#2d2d2d</color>
-    <color name="tomMaisClaroD">#333333</color>
+    <color name="tomMaisClaroD">#111111</color>
     <color name="accent">#00A600</color>
-    <color name="letraFraca">#afafaf</color>
 </resources>

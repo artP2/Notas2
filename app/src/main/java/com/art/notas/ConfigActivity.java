@@ -10,8 +10,8 @@ import android.widget.ImageView;
 
 public class ConfigActivity extends Activity {
 
-    Button buttonG , buttonR;
-    ImageView imageViewR;
+    Button buttonG , buttonR, btTheme;
+    ImageView imageViewR, imgTTheme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,30 +21,20 @@ public class ConfigActivity extends Activity {
         buttonG     =   findViewById(R.id.buttonSource);
         buttonR     =   findViewById(R.id.buttonRequest);
         imageViewR  =   findViewById(R.id.imageReturn);
+        btTheme     =   findViewById(R.id.buttonTheme);
 
-        buttonG.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Uri uri =   Uri.parse( "https://github.com/artpin107/Notas2" );
-                Intent intent   =   new Intent( Intent.ACTION_VIEW , uri );
-                startActivity( intent );
-            }
+        buttonG.setOnClickListener(v -> {
+            Uri uri =   Uri.parse( "https://github.com/artpin107/Notas2" );
+            Intent intent   =   new Intent( Intent.ACTION_VIEW , uri );
+            startActivity( intent );
         });
-        buttonR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Uri uri =   Uri.parse( "https://t.me/artP2" );
-                Intent intent   =   new Intent( Intent.ACTION_VIEW , uri );
-                startActivity( intent );
-            }
+        buttonR.setOnClickListener(v -> {
+            Uri uri =   Uri.parse( "https://t.me/artP2" );
+            Intent intent   =   new Intent( Intent.ACTION_VIEW , uri );
+            startActivity( intent );
         });
 
-        imageViewR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ConfigActivity.this.finish();
-            }
-        });
+        imageViewR.setOnClickListener(v -> ConfigActivity.this.finish());
 
 
     }

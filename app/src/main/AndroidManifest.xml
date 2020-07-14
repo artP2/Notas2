@@ -22,8 +22,9 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".ConfigActivity"
-            android:theme="@style/artTheme"></activity>
+        <activity
+            android:name=".ConfigActivity"
+            android:theme="@style/artTheme" />
     </application>
 
 </manifest>

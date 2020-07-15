@@ -1,22 +1,29 @@
 package com.art.notas
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.view.ViewAnimationUtils
 import android.widget.Button
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.art.notas.coisas.Preferences
+import kotlin.math.hypot
 
 class ConfigActivity : Activity() {
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
-        val themePreferenceString = getString(R.string.preference_theme)
-        val sharedPref = applicationContext.getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
-        val themePreference = sharedPref.getString(themePreferenceString,"artTheme")
+        val themePreference = Preferences(applicationContext).getPreference("THEME_PREFERENCE","artTheme")
         if (themePreference == "reverseArtTheme"){
             setTheme(R.style.reverseArtTheme)
         }else{
@@ -42,16 +49,15 @@ class ConfigActivity : Activity() {
             startActivity(intent)
         }
         btTheme.setOnClickListener { v ->
-            val editor = sharedPref.edit()
-            var themeReverse: String
+            val themeReverse: String
             if (themePreference == "artTheme"){
                 themeReverse = "reverseArtTheme"
             }else{
                 themeReverse = "artTheme"
             }
-            editor.putString(themePreferenceString, themeReverse)
-            editor.putInt(getString(R.string.preference_theme_changed), 1)
-            editor.apply()
+            Preferences(applicationContext).addPref("THEME_PREFERENCE", themeReverse)
+            Preferences(applicationContext).addPref("THEME_CHANGED", 1)
+            animTheme()
         }
 
         imageViewR.setOnClickListener { v ->
@@ -60,9 +66,9 @@ class ConfigActivity : Activity() {
 
 
     }
-    /*//Theme manager
-    private fun setTheme(){
-        var imgTTheme: ImageView = findViewById(R.id.imageThemeTrasition)
+    //Theme manager
+    private fun animTheme(){
+        val imgTTheme: ImageView = findViewById(R.id.imageThemeTrasition)
         val container: ConstraintLayout = findViewById(R.id.tContainer)
         if (imgTTheme.visibility == View.VISIBLE){
             return
@@ -88,6 +94,7 @@ class ConfigActivity : Activity() {
                 imgTTheme.visibility = View.GONE
             }
         })
+        this.recreate()
         anim.start()
-        }*/
+        }
 }

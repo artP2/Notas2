@@ -18,6 +18,7 @@ import com.art.notas.coisas.BancoDados.aNotes
 import com.art.notas.coisas.BancoDados.gNotes
 import com.art.notas.coisas.BancoDados.ids
 import com.art.notas.coisas.BancoDados.notas
+import com.art.notas.coisas.Preferences
 
 
 class MainActivity : Activity() {
@@ -29,20 +30,15 @@ class MainActivity : Activity() {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        val sharedPref = applicationContext.getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
-        val changedInt: Int = sharedPref.getInt(getString(R.string.preference_theme_changed),0)
-        val themePreferenceString = getString(R.string.preference_theme)
-        val themePreference = sharedPref.getString(themePreferenceString, "artTheme")
+        val themePreference = Preferences(applicationContext).getPreference("THEME_PREFERENCE","artTheme")
+        val changedInt = Preferences(applicationContext).getPreference("THEME_CHANGED", 0)
         if (themePreference == "reverseArtTheme") {
             setTheme(R.style.reverseArtTheme)
         } else {
             setTheme(R.style.artTheme)
         }
         if (changedInt == 1) {
-            val editor = sharedPref.edit()
-            editor.putInt(getString(R.string.preference_theme_changed), 0)
-            editor.apply()
+            Preferences(applicationContext).addPref("THEME_CHANGED", 0)
             recreate()
         }
         super.onCreate(savedInstanceState)
@@ -72,10 +68,6 @@ class MainActivity : Activity() {
         listNotas.addOnItemTouchListener(RListAdapter.RecyclerViewTouchListener(context, listNotas, object : RListAdapter.RecyclerViewClickListener {
             //Click
             override fun onClick(view: View, position: Int) {
-                //val sharedPref = applicationContext.getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
-                //val textTest = sharedPref.getString("TEST",null)
-                //val toast = Toast.makeText(applicationContext,textTest,Toast.LENGTH_SHORT)
-                //toast.show()
             }
             //Click longo
             override fun onLongClick(view: View?, position: Int) {
@@ -114,12 +106,9 @@ class MainActivity : Activity() {
     }
 
     override fun onResume() {
-        val sharedPref = applicationContext.getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
-        val changedInt: Int = sharedPref.getInt(getString(R.string.preference_theme_changed),0)
+        val changedInt = Preferences(applicationContext).getPreference("THEME_CHANGED", 0)
         if (changedInt == 1) {
-            val editor = sharedPref.edit()
-            editor.putInt(getString(R.string.preference_theme_changed), 0)
-            editor.apply()
+            Preferences(applicationContext).addPref("THEME_CHANGED", 0)
             recreate()
         }
         super.onResume()

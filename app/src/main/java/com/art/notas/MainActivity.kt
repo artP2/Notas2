@@ -21,8 +21,6 @@ import com.art.notas.coisas.BancoDados.notas
 
 
 class MainActivity : Activity() {
-
-
     private var imageAdd: ImageView? = null
     private var openConfig: ImageView? = null
 
@@ -31,6 +29,22 @@ class MainActivity : Activity() {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val sharedPref = applicationContext.getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
+        val changedInt: Int = sharedPref.getInt(getString(R.string.preference_theme_changed),0)
+        val themePreferenceString = getString(R.string.preference_theme)
+        val themePreference = sharedPref.getString(themePreferenceString, "artTheme")
+        if (themePreference == "reverseArtTheme") {
+            setTheme(R.style.reverseArtTheme)
+        } else {
+            setTheme(R.style.artTheme)
+        }
+        if (changedInt == 1) {
+            val editor = sharedPref.edit()
+            editor.putInt(getString(R.string.preference_theme_changed), 0)
+            editor.apply()
+            recreate()
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -57,8 +71,12 @@ class MainActivity : Activity() {
         //Click na lista
         listNotas.addOnItemTouchListener(RListAdapter.RecyclerViewTouchListener(context, listNotas, object : RListAdapter.RecyclerViewClickListener {
             //Click
-            override fun onClick(view: View, position: Int) {}
-
+            override fun onClick(view: View, position: Int) {
+                //val sharedPref = applicationContext.getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
+                //val textTest = sharedPref.getString("TEST",null)
+                //val toast = Toast.makeText(applicationContext,textTest,Toast.LENGTH_SHORT)
+                //toast.show()
+            }
             //Click longo
             override fun onLongClick(view: View?, position: Int) {
                 //Abrir menu
@@ -95,6 +113,19 @@ class MainActivity : Activity() {
 
     }
 
+    override fun onResume() {
+        val sharedPref = applicationContext.getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
+        val changedInt: Int = sharedPref.getInt(getString(R.string.preference_theme_changed),0)
+        if (changedInt == 1) {
+            val editor = sharedPref.edit()
+            editor.putInt(getString(R.string.preference_theme_changed), 0)
+            editor.apply()
+            recreate()
+        }
+        super.onResume()
+
+    }
+
     //**************************************************************************************************
     //Ir para as configurações
     private fun irParaConfig() {
@@ -102,6 +133,7 @@ class MainActivity : Activity() {
 
             val intent = Intent(this@MainActivity, ConfigActivity::class.java)
             this@MainActivity.startActivity(intent)
+
 
         } catch (e: Exception) {
             e.printStackTrace()

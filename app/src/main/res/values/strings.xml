@@ -16,8 +16,4 @@
     <string name="copy">Copy</string>
 
     <string name="themes">Change theme</string>
-
-    <string name="preferences_key" translatable="false">NOTAS2_PREFERENCES</string>
-    <string name="preference_theme" translatable="false">THEME_PREFERENCE</string>
-    <string name="preference_theme_changed" translatable="false">THEME_CHANGED</string>
 </resources>

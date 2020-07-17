@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import android.graphics.Color
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +12,7 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 
 import com.art.notas.R
 
@@ -99,6 +101,63 @@ object BancoDados {
                 val pPositive = alertDialog.findViewById<Button>(R.id.buttonPAdd)
                 val pCancel = alertDialog.findViewById<Button>(R.id.buttonPCancel)
                 val pText = alertDialog.findViewById<EditText>(R.id.editTextP)
+                val pLayout = alertDialog.findViewById<ConstraintLayout>(R.id.popupLayout)
+
+                fun String.getRGB() = Preferences(context).getRGB(this)
+                //EditText background color
+                if ("POPUP_EDITTEXT_BACKGROUND".getRGB().first != -1) {
+                    val drawable = Preferences(context).drawableWithColor(R.drawable.arredondado, Color.rgb(
+                            "POPUP_EDITTEXT_BACKGROUND".getRGB().first,
+                            "POPUP_EDITTEXT_BACKGROUND".getRGB().second,
+                            "POPUP_EDITTEXT_BACKGROUND".getRGB().third ))
+                    pText!!.setBackgroundDrawable(drawable)
+                }
+                //EditText text color
+                if ("POPUP_EDITTEXT_TEXT_COLOR".getRGB().first != -1) {
+                    pText!!.setTextColor(Color.rgb(
+                            "POPUP_EDITTEXT_TEXT_COLOR".getRGB().first,
+                            "POPUP_EDITTEXT_TEXT_COLOR".getRGB().second,
+                            "POPUP_EDITTEXT_TEXT_COLOR".getRGB().third))
+                    pText.setHintTextColor(Color.rgb(
+                            "POPUP_EDITTEXT_TEXT_COLOR".getRGB().first,
+                            "POPUP_EDITTEXT_TEXT_COLOR".getRGB().second,
+                            "POPUP_EDITTEXT_TEXT_COLOR".getRGB().third))
+                }
+                //Popup button okay color
+                if ("POPUP_BUTTON_OKAY".getRGB().first != -1) {
+                    pPositive!!.setBackgroundColor(Color.rgb(
+                            "POPUP_BUTTON_OKAY".getRGB().first,
+                            "POPUP_BUTTON_OKAY".getRGB().second,
+                            "POPUP_BUTTON_OKAY".getRGB().third ))
+                }
+                //text
+                if ("POPUP_BUTTON_OKAY_TEXT".getRGB().first != -1) {
+                    pPositive!!.setTextColor(Color.rgb(
+                            "POPUP_BUTTON_OKAY_TEXT".getRGB().first,
+                            "POPUP_BUTTON_OKAY_TEXT".getRGB().second,
+                            "POPUP_BUTTON_OKAY_TEXT".getRGB().third ))
+                }
+                //Popup button cancel color
+                if ("POPUP_BUTTON_CANCEL".getRGB().first != -1) {
+                    pCancel!!.setBackgroundColor(Color.rgb(
+                            "POPUP_BUTTON_CANCEL".getRGB().first,
+                            "POPUP_BUTTON_CANCEL".getRGB().second,
+                            "POPUP_BUTTON_CANCEL".getRGB().third ))
+                }
+                //text
+                if ("POPUP_BUTTON_CANCEL_TEXT".getRGB().first != -1) {
+                    pCancel!!.setTextColor(Color.rgb(
+                            "POPUP_BUTTON_CANCEL_TEXT".getRGB().first,
+                            "POPUP_BUTTON_CANCEL_TEXT".getRGB().second,
+                            "POPUP_BUTTON_CANCEL_TEXT".getRGB().third ))
+                }
+                //Popup background color
+                if ("POPUP_BACKGROUND".getRGB().first != -1) {
+                    pLayout!!.setBackgroundColor(Color.rgb(
+                            "POPUP_BACKGROUND".getRGB().first,
+                            "POPUP_BACKGROUND".getRGB().second,
+                            "POPUP_BACKGROUND".getRGB().third ))
+                }
 
                 if (textoN != null) {
                     //Setar texto que vai ser editado

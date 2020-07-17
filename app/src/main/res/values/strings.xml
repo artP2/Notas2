@@ -16,4 +16,20 @@
     <string name="copy">Copy</string>
 
     <string name="themes">Change theme</string>
+
+    <string-array name="keys">
+        <item>APP_BACKGROUND_COLOR</item>
+        <item>ICON_PLUS_COLOR</item>
+        <item>ICON_SETTINGS_COLOR</item>
+        <item>LIST_ITEM_BACKGROUND</item>
+        <item>LIST_ITEM_TEXT_COLOR</item>
+        <item>POPUP_EDITTEXT_BACKGROUND</item>
+        <item>POPUP_EDITTEXT_TEXT_COLOR</item>
+        <item>POPUP_BUTTON_OKAY</item>
+        <item>POPUP_BUTTON_OKAY_TEXT</item>
+        <item>POPUP_BUTTON_CANCEL</item>
+        <item>POPUP_BUTTON_CANCEL_TEXT</item>
+        <item>POPUP_BACKGROUND</item>
+
+    </string-array>
 </resources>

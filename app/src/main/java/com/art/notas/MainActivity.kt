@@ -1,24 +1,25 @@
 package com.art.notas
 
+//It's mine!
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import androidx.annotation.RequiresApi
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.PopupMenu
-
-//It's mine!
-import com.art.notas.coisas.RListAdapter
+import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.RecyclerView
 import com.art.notas.coisas.BancoDados.aNotes
 import com.art.notas.coisas.BancoDados.gNotes
 import com.art.notas.coisas.BancoDados.ids
 import com.art.notas.coisas.BancoDados.notas
 import com.art.notas.coisas.Preferences
+import com.art.notas.coisas.RListAdapter
 
 
 class MainActivity : Activity() {
@@ -30,13 +31,8 @@ class MainActivity : Activity() {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
-        val themePreference = Preferences(applicationContext).getPreference("THEME_PREFERENCE","artTheme")
         val changedInt = Preferences(applicationContext).getPreference("THEME_CHANGED", 0)
-        if (themePreference == "reverseArtTheme") {
-            setTheme(R.style.reverseArtTheme)
-        } else {
-            setTheme(R.style.artTheme)
-        }
+        setTheme(R.style.artTheme)
         if (changedInt == 1) {
             Preferences(applicationContext).addPref("THEME_CHANGED", 0)
             recreate()
@@ -45,10 +41,24 @@ class MainActivity : Activity() {
         setContentView(R.layout.activity_main)
 
         val context = this@MainActivity
+        fun ImageView.setTinted(drawable:Int, color:Int) = this.setImageDrawable(Preferences(context).drawableWithColor(drawable,color))
+        fun String.getRGB() = Preferences(context).getRGB(this)
         //**************************************************************************************************
         listNotas = findViewById(R.id.viewNotas)
         openConfig = findViewById(R.id.imageViewConfig)
+        if ("ICON_SETTINGS_COLOR".getRGB().first != -1) {
+            openConfig!!.setTinted(R.drawable.ic_config, Color.rgb("ICON_SETTINGS_COLOR".getRGB().first, "ICON_SETTINGS_COLOR".getRGB().second, "ICON_SETTINGS_COLOR".getRGB().third))
+        }
         imageAdd = findViewById(R.id.imageViewAdd)
+        if ("ICON_PLUS_COLOR".getRGB().first != -1) {
+            imageAdd!!.setTinted(R.drawable.ic_add, Color.rgb("ICON_PLUS_COLOR".getRGB().first, "ICON_PLUS_COLOR".getRGB().second, "ICON_PLUS_COLOR".getRGB().third))
+        }
+
+        //Background color
+        val layout:ConstraintLayout = findViewById(R.id.mainLayout)
+        if ("APP_BACKGROUND_COLOR".getRGB().first != -1){
+            layout.setBackgroundColor(Color.rgb("APP_BACKGROUND_COLOR".getRGB().first, "APP_BACKGROUND_COLOR".getRGB().second, "APP_BACKGROUND_COLOR".getRGB().third))
+        }
 
         //**************************************************************************************************
         // Criar arquivo para guardar dados
@@ -59,6 +69,7 @@ class MainActivity : Activity() {
         // PopUp
 
         imageAdd!!.setOnClickListener { gNotes(bancoDados, context, listNotas, 6, null, null) }
+
 
         //**************************************************************************************************
         // Eventos de onClick
@@ -119,7 +130,6 @@ class MainActivity : Activity() {
     //Ir para as configurações
     private fun irParaConfig() {
         try {
-
             val intent = Intent(this@MainActivity, ConfigActivity::class.java)
             this@MainActivity.startActivity(intent)
 
@@ -129,4 +139,5 @@ class MainActivity : Activity() {
         }
 
     }
+
 }

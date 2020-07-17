@@ -1,6 +1,7 @@
 package com.art.notas.coisas
 
 import android.content.Context
+import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import android.view.GestureDetector
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ class RListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RListAdapter.ViewHolder {
         /** CRIA AS VIEWS
          * CHAMADO PELO LAYOUT MANAGER  */
+
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.notas_view, parent, false)
         return ViewHolder(view)
@@ -27,7 +29,23 @@ class RListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         /** REPASSA O CONTEUDO DO DATASET PARA A VIEW  */
-        val textView = holder.rView.findViewById<TextView>(R.id.textViewNotas)
+        val textView:TextView = holder.rView.findViewById<TextView>(R.id.textViewNotas)
+        fun String.getRGB() = Preferences(holder.rView.context).getRGB(this)
+        //Item background color
+        if ("LIST_ITEM_BACKGROUND".getRGB().first != -1) {
+            val drawable = Preferences(holder.rView.context).drawableWithColor(R.drawable.arredondado, Color.rgb(
+                    "LIST_ITEM_BACKGROUND".getRGB().first,
+                    "LIST_ITEM_BACKGROUND".getRGB().second,
+                    "LIST_ITEM_BACKGROUND".getRGB().third ))
+            textView.setBackgroundDrawable(drawable)
+        }
+        //Item text color
+        if ("LIST_ITEM_TEXT_COLOR".getRGB().first != -1) {
+            textView.setTextColor(Color.rgb(
+                    "LIST_ITEM_TEXT_COLOR".getRGB().first,
+                    "LIST_ITEM_TEXT_COLOR".getRGB().second,
+                    "LIST_ITEM_TEXT_COLOR".getRGB().third))
+        }
         textView.text = rDataset[position]
 
 

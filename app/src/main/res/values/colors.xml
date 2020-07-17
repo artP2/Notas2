@@ -2,4 +2,8 @@
 <resources>
     <color name="tomMaisClaroD">#111111</color>
     <color name="accent">#00A600</color>
+    <color name="accentR">#EC2222</color>
+    <color name="accentB">#2196F3</color>
+
+
 </resources>
